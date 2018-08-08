@@ -159,11 +159,13 @@ NORMALIZE_RULES = {
     'deg':  (1, 'deg')
     }
 
+
 class DE5000(object):
 
     def __init__(self, port):
         self._port = port
-        self._ser = serial.Serial(self._port, BAUD_RATE, BITS, PARITY, STOP_BITS, timeout=TIMEOUT)
+        self._ser = serial.Serial(
+            self._port, BAUD_RATE, BITS, PARITY, STOP_BITS, timeout=TIMEOUT)
         self._ser.setDTR(True)
         self._ser.setRTS(False)
 
@@ -356,13 +358,13 @@ class DE5000(object):
         units = NORMALIZE_RULES[units][1]
         return (val, units)
 
-    def pretty_print(self, disp_norm_val = False):
+    def pretty_print(self, disp_norm_val=False):
         '''Prints measurement details in pretty print.
         disp_norm_val: if True, normalized values will also be displayed.
         '''
         data = self.get_meas()
 
-        if data['data_valid'] == False:
+        if data['data_valid'] is False:
             print("DE-5000 is not connected.")
             return
 
@@ -423,6 +425,7 @@ class DE5000(object):
     def __del__(self):
         if hasattr(self, '_ser'):
             self._ser.close()
+
 
 if __name__ == '__main__':
     pass
