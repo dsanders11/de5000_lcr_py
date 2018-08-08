@@ -6,6 +6,8 @@ Created on Sep 15, 2017
 Serial port settings: 9600 8N1 DTR=1 RTS=0
 '''
 
+from __future__ import print_function
+
 import serial
 
 # Settings constants
@@ -361,62 +363,62 @@ class DE5000(object):
         data = self.get_meas()
 
         if data['data_valid'] == False:
-            print "DE-5000 is not connected."
+            print("DE-5000 is not connected.")
             return
 
         # In calibration mode frequency is not displayed.
         if data['cal_mode']:
-            print "Calibration"
+            print("Calibration")
         else:
             if data['sorting_mode']:
-                print "SORTING Tol %s" % data['tolerance']
-            print "Frequency: %s" % data['freq']
+                print("SORTING Tol %s" % data['tolerance'])
+            print("Frequency: %s" % data['freq'])
 
         # LCR autodetection mode
         if data['lcr_auto']:
-            print "LCR AUTO"
+            print("LCR AUTO")
 
         # Auto range
         if data['auto_range']:
-            print "AUTO RNG"
+            print("AUTO RNG")
 
         # Delta mode parameters
         if data['delta_mode']:
             if data['ref_shown']:
-                print "DELTA Ref"
+                print("DELTA Ref")
             else:
-                print "DELTA"
+                print("DELTA")
 
         # Main display
         if data['main_status'] == 'normal':
-            print "%s = %s %s" % (data['main_quantity'], data['main_val'], data['main_units'])
+            print("%s = %s %s" % (data['main_quantity'], data['main_val'], data['main_units']))
         elif data['main_status'] == 'blank':
-            print
+            print("")
         else:
-            print data['main_status']
+            print(data['main_status'])
 
         # Secondary display
         if data['sec_status'] == 'normal':
                 if data['sec_quantity'] is not None:
-                    print "%s = %s %s" % (data['sec_quantity'], data['sec_val'], data['sec_units'])
+                    print("%s = %s %s" % (data['sec_quantity'], data['sec_val'], data['sec_units']))
                 else:
-                    print "%s %s" % (data['sec_val'], data['sec_units'])
+                    print("%s %s" % (data['sec_val'], data['sec_units']))
         elif data['sec_status'] == 'blank':
-            print
+            print("")
         else:
-            print data['sec_status']
+            print(data['sec_status'])
 
         # Display normalized values
         # If measurement status is not normal, ---- will be displayed.
         if disp_norm_val:
             if data['main_status'] == 'normal':
-                print "Primary: %s %s" % (data['main_norm_val'], data['main_norm_units'])
+                print("Primary: %s %s" % (data['main_norm_val'], data['main_norm_units']))
             else:
-                print "Primary: ----"
+                print("Primary: ----")
             if data['sec_status'] == 'normal':
-                print "Secondary: %s %s" % (data['sec_norm_val'], data['sec_norm_units'])
+                print("Secondary: %s %s" % (data['sec_norm_val'], data['sec_norm_units']))
             else:
-                print "Secondary: ----"
+                print("Secondary: ----")
 
     def __del__(self):
         if hasattr(self, '_ser'):
