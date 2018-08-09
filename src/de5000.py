@@ -423,8 +423,8 @@ def main(port="/dev/ttyUSB0", interval=1.0):
         print("Serial port error.")
     except KeyboardInterrupt:
         print("")
-        print("Extiting DE-5000 monitor.")
         sys.exit()
+        print("Exiting DE-5000 monitor.")
 
 
 if __name__ == '__main__':
