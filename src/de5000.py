@@ -8,6 +8,7 @@ Serial port settings: 9600 8N1 DTR=1 RTS=0
 
 from __future__ import print_function
 
+from builtins import bytes
 import serial
 
 # Settings constants
@@ -17,7 +18,7 @@ PARITY = serial.PARITY_NONE
 STOP_BITS = serial.STOPBITS_ONE
 TIMEOUT = 1
 # Data packet ends with CR LF (\r \n) characters
-EOL = b'\x0D\x0A'
+EOL = bytes([0x0D, 0x0A])
 RAW_DATA_LENGTH = 17
 READ_RETRIES = 3
 
@@ -194,7 +195,7 @@ class DE5000(object):
         res = []
         # Check data validity
         if self.is_data_valid(raw_data):
-            res = [ord(c) for c in raw_data]
+            res = list(bytes(raw_data))
         return res
 
     def is_data_valid(self, raw_data):
@@ -206,12 +207,14 @@ class DE5000(object):
         if len(raw_data) != RAW_DATA_LENGTH:
             return False
 
+        raw_data = bytes(raw_data)
+
         # Start bits
-        if raw_data[0] != '\x00' or raw_data[1] != '\x0D':
+        if raw_data[0] != 0x00 or raw_data[1] != 0x0D:
             return False
 
         # End bits
-        if raw_data[15] != '\x0D' or raw_data[16] != '\x0A':
+        if raw_data[15] != 0x0D or raw_data[16] != 0x0A:
             return False
 
         return True
