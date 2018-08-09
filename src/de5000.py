@@ -53,7 +53,7 @@ FREQ = [
     '10 KHz',
     '100 KHz',
     'DC'
-    ]
+]
 
 # Byte 0x04: tolerance
 TOLERANCE = [
@@ -67,7 +67,7 @@ TOLERANCE = [
     '+-10%',
     '+-20%',
     '-20+80%',
-    ]
+]
 
 # Byte 0x05: primary measured quantity (serial and parallel mode)
 MEAS_QUANTITY_SER = [None, 'Ls', 'Cs', 'Rs', 'DCR']
@@ -91,7 +91,7 @@ MAIN_UNITS = [
     '%',
     'deg',
     None, None, None, None, None, None
-    ]
+]
 
 # Bytes 0x09, 0x0E bits 0-3: Measurement display status
 STATUS = [
@@ -104,7 +104,7 @@ STATUS = [
     'FAIL',
     'OPEn',
     'Srt'
-    ]
+]
 
 # Byte 0x0a: secondary measured quantity
 SEC_QUANTITY = [
@@ -113,7 +113,7 @@ SEC_QUANTITY = [
     'Q',
     'ESR',
     'Theta'
-    ]
+]
 RP = 'RP'
 
 # Output format
@@ -143,7 +143,7 @@ MEAS_RES = {
     'parallel': False,
 
     'data_valid': False
-    }
+}
 
 # Normalization constants
 # Each value contains multiplier and target value
@@ -162,11 +162,10 @@ NORMALIZE_RULES = {
     'mF':   (1E-3, 'F'),
     '%':    (1, '%'),
     'deg':  (1, 'deg')
-    }
+}
 
 
 class DE5000(object):
-
     def __init__(self, port):
         self._port = port
         self._ser = serial.Serial(
