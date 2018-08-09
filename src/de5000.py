@@ -246,46 +246,14 @@ class DE5000(object):
         val = val >> 5
         res['freq'] = FREQ[val]
 
-        # Reference shown
-        val = raw_data[0x02]
-        val &= REF_SHOWN
-        res['ref_shown'] = True if val else False
-
-        # Delta mode
-        val = raw_data[0x02]
-        val &= DELTA
-        res['delta_mode'] = True if val else False
-
-        # Calibration mode
-        val = raw_data[0x02]
-        val &= CAL
-        res['cal_mode'] = True if val else False
-
-        # Sorting mode
-        val = raw_data[0x02]
-        val &= SORTING
-        res['sorting_mode'] = True if val else False
-
-        # LCR AUTO mode
-        val = raw_data[0x02]
-        val &= LCR_AUTO
-        res['lcr_auto'] = True if val else False
-
-        # Auto range
-        val = raw_data[0x02]
-        val &= AUTO_RANGE
-        res['auto_range'] = True if val else False
-
-        # Parallel measurement
-        val = raw_data[0x02]
-        val &= PARALLEL
-        res['parallel'] = True if val else False
-
-        # Main measurement
-        # Status
-        val = raw_data[0x09]
-        val &= 0b00001111
-        res['main_status'] = STATUS[val]
+        res['ref_shown'] = raw_data[0x02] & REF_SHOWN
+        res['delta_mode'] = raw_data[0x02] & DELTA
+        res['cal_mode'] = raw_data[0x02] & CAL
+        res['sorting_mode'] = raw_data[0x02] & SORTING
+        res['lcr_auto'] = raw_data[0x02] & LCR_AUTO
+        res['auto_range'] = raw_data[0x02] & AUTO_RANGE
+        res['parallel'] = raw_data[0x02] & PARALLEL
+        res['main_status'] = STATUS[raw_data[0x09] & 0b00001111]
 
         # Quantity
         val = raw_data[0x05]
