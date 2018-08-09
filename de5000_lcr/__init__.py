@@ -8,11 +8,7 @@ Serial port settings: 9600 8N1 DTR=1 RTS=0
 
 from __future__ import print_function
 
-import argparse
 from builtins import bytes
-import sys
-import time
-import datetime
 
 import serial
 
@@ -406,45 +402,3 @@ class DE5000(object):
     def __del__(self):
         if hasattr(self, '_ser'):
             self._ser.close()
-
-
-def main(port, interval):
-    print("Starting DE-5000 monitor...")
-    exit_code = 0
-
-    try:
-        lcr = DE5000(port)
-
-        while True:
-            print("")
-            print(datetime.datetime.now())
-            lcr.pretty_print(disp_norm_val=True)
-
-            time.sleep(interval)
-    except serial.SerialException:
-        print("Serial port error.")
-        exit_code = 1
-    except KeyboardInterrupt:
-        print("")
-        print("Exiting DE-5000 monitor.")
-
-    sys.exit(exit_code)
-
-
-def commandline():
-    parser = argparse.ArgumentParser(
-        description="Monitor DE-5000 serial output")
-    parser.add_argument('--serial', dest='serial_port', action='store',
-                        default='/dev/ttyUSB0',
-                        help="Serial port to use (default: /dev/ttyUSB0)")
-    parser.add_argument('--interval', dest='interval', action='store',
-                        default=1.0, type=float,
-                        help="Polling interval, in seconds (default: 1.0)")
-
-    args = parser.parse_args()
-
-    main(args.serial_port, args.interval)
-
-
-if __name__ == '__main__':
-    commandline()

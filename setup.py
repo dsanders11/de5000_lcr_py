@@ -19,7 +19,7 @@ setuptools.setup(
     ),
     entry_points={
         'console_scripts': [
-            'de5000_lcr = de5000_lcr:commandline',
+            'de5000_lcr = de5000_lcr.command_line:commandline',
         ]
     }
 )
