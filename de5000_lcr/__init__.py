@@ -431,7 +431,7 @@ def main(port, interval):
     sys.exit(exit_code)
 
 
-if __name__ == '__main__':
+def commandline():
     parser = argparse.ArgumentParser(
         description="Monitor DE-5000 serial output")
     parser.add_argument('--serial', dest='serial_port', action='store',
@@ -444,3 +444,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     main(args.serial_port, args.interval)
+
+
+if __name__ == '__main__':
+    commandline()

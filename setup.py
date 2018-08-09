@@ -17,4 +17,9 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
     ),
+    entry_points={
+        'console_scripts': [
+            'de5000_lcr = de5000_lcr:commandline',
+        ]
+    }
 )
