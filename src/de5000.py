@@ -373,8 +373,8 @@ class DE5000(object):
             print("Calibration")
         else:
             if data['sorting_mode']:
-                print("SORTING Tol %s" % data['tolerance'])
-            print("Frequency: %s" % data['freq'])
+                print("SORTING Tol {:s}".format(data['tolerance']))
+            print("Frequency: {:s}".format(data['freq']))
 
         # LCR autodetection mode
         if data['lcr_auto']:
@@ -393,7 +393,8 @@ class DE5000(object):
 
         # Main display
         if data['main_status'] == 'normal':
-            print("%s = %s %s" % (data['main_quantity'], data['main_val'], data['main_units']))
+            print("{:s} = {:g} {:s}".format(
+                data['main_quantity'], data['main_val'], data['main_units']))
         elif data['main_status'] == 'blank':
             print("")
         else:
@@ -402,9 +403,12 @@ class DE5000(object):
         # Secondary display
         if data['sec_status'] == 'normal':
                 if data['sec_quantity'] is not None:
-                    print("%s = %s %s" % (data['sec_quantity'], data['sec_val'], data['sec_units']))
+                    print("{:s} = {:g} {:s}".format(
+                        data['sec_quantity'], data['sec_val'],
+                        data['sec_units']))
                 else:
-                    print("%s %s" % (data['sec_val'], data['sec_units']))
+                    print("{:g} {:s}".format(
+                        data['sec_val'], data['sec_units']))
         elif data['sec_status'] == 'blank':
             print("")
         else:
@@ -414,11 +418,13 @@ class DE5000(object):
         # If measurement status is not normal, ---- will be displayed.
         if disp_norm_val:
             if data['main_status'] == 'normal':
-                print("Primary: %s %s" % (data['main_norm_val'], data['main_norm_units']))
+                print("Primary: {:g} {:s}".format(
+                    data['main_norm_val'], data['main_norm_units']))
             else:
                 print("Primary: ----")
             if data['sec_status'] == 'normal':
-                print("Secondary: %s %s" % (data['sec_norm_val'], data['sec_norm_units']))
+                print("Secondary: {:g} {:s}".format(
+                    data['sec_norm_val'], data['sec_norm_units']))
             else:
                 print("Secondary: ----")
 
