@@ -9,6 +9,10 @@ Serial port settings: 9600 8N1 DTR=1 RTS=0
 from __future__ import print_function
 
 from builtins import bytes
+import sys
+import time
+import datetime
+
 import serial
 
 # Settings constants
@@ -436,5 +440,30 @@ class DE5000(object):
             self._ser.close()
 
 
+def main(port="/dev/ttyUSB0", interval=1.0):
+    print("Starting DE-5000 monitor...")
+
+    try:
+        lcr = DE5000(port)
+
+        while True:
+            print("")
+            print(datetime.datetime.now())
+            lcr.pretty_print(disp_norm_val=True)
+
+            time.sleep(interval)
+    except serial.SerialException:
+        print("Serial port error.")
+    except KeyboardInterrupt:
+        print("")
+        print("Extiting DE-5000 monitor.")
+        sys.exit()
+
+
 if __name__ == '__main__':
-    pass
+    kwargs = {}
+
+    if len(sys.argv) > 1:
+        kwargs['port'] = sys.argv[1]
+
+    main(**kwargs)
